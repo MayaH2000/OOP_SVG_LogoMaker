@@ -87,10 +87,12 @@ SOFTWARE.
 
 
 ## Walkthrough Link
-
+https://drive.google.com/file/d/1_i-u283SGfiRPYdsg2EKR_19PtnX7aAu/view?usp=sharing
 
 ## Screenshot of Application
+<img width="1470" alt="Screenshot 2023-11-28 at 4 52 06 PM" src="https://github.com/MayaH2000/OOP_SVG_LogoMaker/assets/101356128/d6ea4817-2e1d-48f0-89c6-f7444f8c158c">
+<img width="1470" alt="Screenshot 2023-11-28 at 4 51 51 PM" src="https://github.com/MayaH2000/OOP_SVG_LogoMaker/assets/101356128/2eb4e4a7-b5fc-4af3-83db-044947ba55a8">
 
 
 ## Credits
-# This project was initiated with starter code obtained from one of my own projects, README_Generator. I was able to substancially refractor the code from README_Generator to meet the necessary criteria for my OOP_SVG_LogoMaker project.
+ This project was initiated with starter code obtained from one of my own projects, README_Generator. I was able to substancially refractor the code from README_Generator to meet the necessary criteria for my OOP_SVG_LogoMaker project.
