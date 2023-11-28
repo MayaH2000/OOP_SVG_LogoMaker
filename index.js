@@ -100,8 +100,23 @@ async function writeSVGFile(fileName, data) {
 
 async function init() {
   try {
-    const answers = await inquirer.prompt(questions); // Use inquirer.prompt directly
-    const svgContent = createSVG(answers);
+    const answers = await promptUser();
+    let shape;
+    switch (answers.shape.toLowerCase()) {
+      case "circle":
+        shape = new Circle(answers);
+        break;
+      case "triangle":
+        shape = new Triangle(answers);
+        break;
+      case "square":
+        shape = new Square(answers);
+        break;
+      default:
+        throw new Error("Invalid shape selected");
+    }
+
+    const svgContent = shape.render();
     await writeSVGFile('logo.svg', svgContent);
     console.log('Generated logo.svg');
   } catch (err) {
@@ -110,4 +125,3 @@ async function init() {
 }
 
 init();
-
