@@ -1,79 +1,92 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+class Shape {
+  constructor(userData) {
+    this.userData = userData;
+  }
 
-const questions = [
-  {
-    type: 'input',
-    name: 'text',
-    message: 'Enter up to three characters:',
-    validate: (value) => value.length <= 3,
-  },
-  {
-    type: 'input',
-    name: 'textColor',
-    message: 'Enter text color:',
-  },
-  {
-    type: 'list',
-    name: 'shape',
-    message: 'Choose a shape:',
-    choices: ['circle', 'triangle', 'square'],
-  },
-  {
-    type: 'input',
-    name: 'shapeColor',
-    message: 'Enter shape color:',
-  },
-];
+  render() {
+    throw new Error("render method must be implemented by child classes");
+  }
+}
+
+class Circle extends Shape {
+  render() {
+    return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="100" r="80" fill="${this.userData.shapeColor}" />
+        <text x="150" y="125" font-size="60" text-anchor="middle" fill="${this.userData.textColor}">${this.userData.logoText}</text>
+      </svg>`;
+  }
+}
+
+class Square extends Shape {
+  render() {
+    return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="300" fill="${this.userData.shapeColor}" />
+        <text x="150" y="125" font-size="60" text-anchor="middle" fill="${this.userData.textColor}">${this.userData.logoText}</text>
+      </svg>`;
+  }
+}
+
+class Triangle extends Shape {
+  render() {
+    return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="150,20 280,180 20,180" fill="${this.userData.shapeColor}" />
+        <text x="150" y="125" font-size="60" text-anchor="middle" fill="${this.userData.textColor}">${this.userData.logoText}</text>
+      </svg>`;
+  }
+}
+
+const promptUser = async () => {
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "logoText",
+        message:
+          "What text would you like to include in your logo? (enter up to three characters)",
+        validate: function (input) {
+          return input.length === 3
+            ? true
+            : "Please enter exactly 3 characters.";
+        },
+      },
+      {
+        type: "input",
+        name: "textColor",
+        message:
+          "What color would you like the logo text to be? (enter color keyword OR a hexadecimal number)",
+      },
+      {
+        type: "list",
+        name: "shape",
+        message: "What shape would you like to use?",
+        choices: ["Circle", "Triangle", "Square"],
+      },
+      {
+        type: "input",
+        name: "shapeColor",
+        message:
+          "What color would you like the logo shape to be? (enter color keyword OR a hexadecimal number)",
+      },
+    ])
+    .then((data) => {
+      return data;
+    });
+};
 
 function createSVG(answers) {
   // Logic to generate SVG based on user input
   const { text, textColor, shape, shapeColor } = answers;
-  class Shape {
-    constructor(type) {
-      this.type = type;
-    }
-    
-    // Additional methods related to shapes
-  }
-  
-  class Color {
-    constructor(value) {
-      this.value = value;
-    }
-    
-    // Additional methods related to colors
-  }
-  
-  class Text {
-    constructor(value) {
-      if (value.length > 3) {
-        throw new Error('Text should be up to three characters long.');
-      }
-      this.value = value;
-    }
-    
-    // Additional methods related to text
-  }
-  
-  function createSVG(answers) {
-    const { text, textColor, shape, shapeColor } = answers;
-  
-    const textObj = new Text(text);
-    const textColorObj = new Color(textColor);
-    const shapeObj = new Shape(shape);
-    const shapeColorObj = new Color(shapeColor);
-    
-    // Use these objects to construct the SVG content
-    const svgContent = `<svg width="100" height="100">
-      <text x="10" y="20" fill="${textColorObj.value}">${textObj.value}</text>
-      <!-- Other shapes or elements based on user input -->
-    </svg>`;
-    
-    return svgContent;
-  }
-  
+  // Construct SVG based on user input
+  const svgContent = `<svg width="100" height="100">
+    <!-- Your SVG content here -->
+    <text x="10" y="20" fill="${textColor}">${text}</text>
+    <!-- Other shapes or elements based on user input -->
+  </svg>`;
+  return svgContent;
+}
 
 async function writeSVGFile(fileName, data) {
     console.log(fileName, data);
@@ -97,3 +110,4 @@ async function init() {
 }
 
 init();
+
