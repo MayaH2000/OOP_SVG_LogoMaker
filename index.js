@@ -56,7 +56,7 @@ const promptUser = async () => {
         type: "input",
         name: "textColor",
         message:
-          "What color would you like the logo text to be? (enter color keyword OR a hexadecimal number)",
+          "What color would you like the logo text color to be? (enter color keyword)",
       },
       {
         type: "list",
@@ -68,7 +68,7 @@ const promptUser = async () => {
         type: "input",
         name: "shapeColor",
         message:
-          "What color would you like the logo shape to be? (enter color keyword OR a hexadecimal number)",
+          "What color would you like the logo shape color to be? (enter color keyword)",
       },
     ])
     .then((data) => {
